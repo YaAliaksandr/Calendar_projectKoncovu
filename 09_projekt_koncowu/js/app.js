@@ -18,7 +18,7 @@ border: 2px solid blue;
 `;
 
 const App = () => {
-	moment.updateLocale('en', { week: { dow: 1 } });//устанавливаем начало недели с понедельника (Monday) а не с воскресенья
+	moment.updateLocale('pl', { week: { dow: 1 } });//устанавливаем начало недели с понедельника (Monday) а не с воскресенья
 
 	// const today = moment();
 	const [day, setDay] = useState(moment());
@@ -45,7 +45,7 @@ const App = () => {
 	return (<AppWrapper >
 		<Header />
 		<Monitor today={day} next={nextMonth} prev={prevMonth} current={currentDay} />
-		<Calendar startDay={startWeekMonthstart} />
+		<Calendar startDay={startWeekMonthstart} today={day} />
 	</AppWrapper>)
 }
 

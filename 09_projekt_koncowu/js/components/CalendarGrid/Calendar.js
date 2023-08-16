@@ -16,7 +16,7 @@ const CellWrapper = styled.div`
 min-height:${props => props.isHeader ? 24 : 80}px;
 min-width:140px;
 background-color:${({ isWeekend }) => isWeekend ? '#27282A' : '#1E1F21'};
-color:#DDDDDD;
+color:${props => props.isSelectedMonth ? '#DDDDDD' : '#555759'};
 `;
 
 const RowInCeil = styled.div`
@@ -43,7 +43,7 @@ align-items:center;
 justify-content:center;
 `;
 
-export const Calendar = ({ startDay }) => {
+export const Calendar = ({ startDay, today }) => {
 	const totalDays = 42;// max 6 weeks(in mounth) * 7(num of Day in week)
 	const day = startDay.clone().subtract(1, 'day'); // было 1.08 применяем вычитание subtract и получаем на один день меньше
 	// console.log(day);
@@ -52,35 +52,49 @@ export const Calendar = ({ startDay }) => {
 
 	const isCurrentDay = (day) => {
 		return moment().isSame(day, 'day');
-
 	}
-	return (<>
-		<GridWrapper isHeader>
-			{[...Array(7)].map((it, ind) => (<CellWrapper key={ind} isHeader>
-				<RowInCeil justCon='flex-end' pr >
-					{moment().day(ind + 1).format('dddd')}
-				</RowInCeil>
-			</CellWrapper>))}
-		</GridWrapper>
-		<GridWrapper>
-			{
-				daysArray.map((it) => {
-					return <CellWrapper key={it.format('YYYYMMDD')} isWeekend={it.day() === 6 || it.day() === 0}
-					>
-						<RowInCeil justCon='flex-end'>
-							<DayInWrapper>
-								{
-									isCurrentDay(it) ? (<CurrentDay>{it.format('DD')}</CurrentDay>) : it.format('DD')
-								}
 
+	const isSelectedMonth = (day) => {
+		return today.isSame(day, 'month');
+	}
 
-							</DayInWrapper>
+	return (
+		<>
+			<GridWrapper isHeader>
+				{[...Array(7)].map((it, ind) => (
+					<CellWrapper key={ind} isHeader isSelectedMonth={true}>
+						<RowInCeil justCon='flex-end' pr >
+							{moment().day(ind + 1).format('dddd').charAt(0).toUpperCase() + moment().day(ind + 1).format('dddd').slice(1)}
 						</RowInCeil>
-
 					</CellWrapper>
-				})
-			}
+				)
+				)}
+			</GridWrapper>
+			<GridWrapper>
+				{
+					daysArray.map((it) => {
+						return (
+							<CellWrapper
+								key={it.format('YYYYMMDD')}
+								isWeekend={it.day() === 6 || it.day() === 0}
+								isSelectedMonth={isSelectedMonth(it)}
+							>
+								<RowInCeil justCon='flex-end'>
+									<DayInWrapper>
+										{
+											isCurrentDay(it) ? (<CurrentDay>{it.format('DD')}</CurrentDay>) : it.format('DD')
+										}
 
-		</GridWrapper>
-	</>)
+
+									</DayInWrapper>
+								</RowInCeil>
+
+							</CellWrapper>
+						)
+					})
+				}
+
+			</GridWrapper>
+		</>
+	)
 }

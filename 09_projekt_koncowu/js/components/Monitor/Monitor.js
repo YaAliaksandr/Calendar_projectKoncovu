@@ -9,6 +9,7 @@ justify-content:space-between;
 align-items:center;
 background-color:rgb(27,28,31);
 color:rgb(148,149,152);
+padding:16px;
 `;
 const TextWrapper = styled('span')`
 font-size:24px;
@@ -41,7 +42,7 @@ export const Monitor = ({ today, prev, next, current }) => {
 	return (
 		<DivMonit>
 			<div>
-				<TitleWrapper>{today.format('MMMM')}</TitleWrapper>
+				<TitleWrapper>{today.format('MMMM').charAt(0).toUpperCase() + today.format('MMMM').slice(1)}</TitleWrapper>
 				<TextWrapper>{today.format('YYYY')}</TextWrapper>
 			</div>
 			<ButtonsWrapper>
