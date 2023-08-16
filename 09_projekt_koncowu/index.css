@@ -1,0 +1,22 @@
+* {
+
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#app {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.ad {
+	border: 1px solid red;
+	border-radius: 8px;
+}
