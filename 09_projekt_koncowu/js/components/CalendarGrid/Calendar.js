@@ -7,20 +7,22 @@ import moment from "moment/moment";
 const GridWrapper = styled.div`
 display:grid;
 grid-template-columns:repeat(7,1fr);
-grid-template-rows:repeat(6,1fr);
-background-color:#404040;
 grid-gap:1px;
+background-color:${props => props.isHeader ? '#1E1F21' : '#4D4C4D'};
+${props => props.isHeader && 'border-bottom:1px solid #4D4C4D'};
 `;
+// grid-template-rows:repeat(6,1fr);
 const CellWrapper = styled.div`
-min-height:80px;
+min-height:${props => props.isHeader ? 24 : 80}px;
 min-width:140px;
-background-color:${({ isWeekend }) => isWeekend ? 'rgb(36,34,38)' : 'rgb(27,28,31)'};
-color:rgb(148,149,152);
+background-color:${({ isWeekend }) => isWeekend ? '#27282A' : '#1E1F21'};
+color:#DDDDDD;
 `;
 
 const RowInCeil = styled.div`
 display:flex;
 justify-content:${({ justCon }) => justCon ? justCon : 'flex-start'};
+${props => props.pr && 'padding-right:8px'};
 `;
 
 const DayInWrapper = styled.div`
@@ -34,7 +36,7 @@ margin:2px;
 const CurrentDay = styled('div')`
 height:100%;
 width:100%;
-background-color:rgb(223 223 0);
+background-color:#f00;
 border-radius:50%;
 display:flex;
 align-items:center;
@@ -53,6 +55,13 @@ export const Calendar = ({ startDay }) => {
 
 	}
 	return (<>
+		<GridWrapper isHeader>
+			{[...Array(7)].map((it, ind) => (<CellWrapper key={ind} isHeader>
+				<RowInCeil justCon='flex-end' pr >
+					{moment().day(ind + 1).format('dddd')}
+				</RowInCeil>
+			</CellWrapper>))}
+		</GridWrapper>
 		<GridWrapper>
 			{
 				daysArray.map((it) => {
