@@ -24,7 +24,7 @@ const App = () => {
 	const [day, setDay] = useState(moment());
 	const monthStart = day.startOf('month');
 	const startWeekMonthstart = monthStart.clone().startOf('week');//first week date of months start
-	console.log(startWeekMonthstart);
+	// console.log(startWeekMonthstart);
 	const monthEnd = moment().endOf('month');
 	const weekEndMonthEnd = monthEnd.endOf('week');//last day in this page Calendar 
 
