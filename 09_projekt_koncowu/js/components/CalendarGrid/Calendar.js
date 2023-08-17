@@ -70,8 +70,8 @@ align-items:center;
 justify-content:center;
 `;
 
-export const Calendar = ({ startDay, today }) => {
-	const totalDays = 42;// max 6 weeks(in mounth) * 7(num of Day in week)
+export const Calendar = ({ startDay, today, totalDays }) => {
+	// totalDays = 42;// max 6 weeks(in mounth) * 7(num of Day in week)
 	const day = startDay.clone().subtract(1, 'day'); // было 1.08 применяем вычитание subtract и получаем на один день меньше
 	// console.log(day);
 	const daysArray = [...new Array(totalDays)].map((it) => { return it = day.add(1, 'day').clone(); });
@@ -118,7 +118,7 @@ export const Calendar = ({ startDay, today }) => {
 			<GridWrapper isHeader>
 				{[...Array(7)].map((it, ind) => (
 					<CellWrapper key={ind} isHeader isSelectedMonth={true}>
-						<RowInCeil justCon={'flex-end'} pr >
+						<RowInCeil justCon='flex-end' pr >
 							{moment().day(ind + 1).format('dddd').charAt(0).toUpperCase() + moment().day(ind + 1).format('dddd').slice(1)}
 						</RowInCeil>
 					</CellWrapper>
