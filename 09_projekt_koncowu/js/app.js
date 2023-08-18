@@ -50,17 +50,17 @@ const App = () => {
 		fetch(`${url}/events?date_gte=${startDateQuery}&date_lte=${endDateQuery}`)
 			.then(resp => resp.json())
 			.then(resp2 => {
-				console.log(startDateQuery);
-				console.log(resp2);
+				// console.log(startDateQuery);
+				// console.log(resp2);
 				setEvents(resp2)
 			})
-	}, [])
+	}, [day])
 
 
 	return (<AppWrapper >
 		<Header />
 		<Monitor today={day} next={nextMonth} prev={prevMonth} current={currentDay} />
-		<Calendar startDay={startWeekMonthstart} today={day} totalDays={totalDays} />
+		<Calendar startDay={startWeekMonthstart} today={day} totalDays={totalDays} events={events} />
 	</AppWrapper>)
 }
 
