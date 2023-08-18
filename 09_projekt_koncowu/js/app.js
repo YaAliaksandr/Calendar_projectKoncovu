@@ -131,6 +131,26 @@ const App = () => {
 			}
 		})
 	}
+	const eventFetchHandler = () => {
+		const fetchUrl = method === 'Edytuj' ? `${url}/events/${event.id}` : `${url}/events`;
+		const httpMethod = method === 'Edytuj' ? 'PATCH' : 'POST';
+
+		fetch(fetchUrl, {
+			method: httpMethod,
+			body: JSON.stringify(event),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp1 => resp1.json())
+			.then(resp2 => {
+				console.log(resp2);
+				setEvents(prev => [...prev, resp2]);
+				setShowForm(false);
+			})
+
+
+	}
 
 	return (<>
 		{
@@ -149,7 +169,7 @@ const App = () => {
 						<EventBody /> */}
 						<ButtonsWrapper>
 							<button onClick={canselButtonHandler}>Anuluj</button>
-							<button>{method}</button>
+							<button onClick={eventFetchHandler}>{method}</button>
 						</ButtonsWrapper>
 
 					</FormWrapper>
