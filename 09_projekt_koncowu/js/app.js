@@ -27,7 +27,7 @@ justify-content:center;
 `;
 
 const FormWrapper = styled(AppWrapper)`
-width:200px;
+width:300px;
 background-color:#1E1F21;
 color:#DDDDDD;
 box-shadow:unset;
@@ -43,16 +43,29 @@ color:#DDDDDD;
 outline:unset;
 border-bottom:1px solid #464648;
 `;
-const EventBody = styled.input`
+const EventBody = styled.textarea`
 padding:4px 14px;
 font-size:0.85rem;
 width:100%;
-border:unset;
+min-height:200px;
+
 background-color:#1E1F21;
 color:#DDDDDD;
 outline:unset;
+border:unset;
 border-bottom:1px solid #464648;
+
 `;
+// const EventBody = styled.input`
+// padding:4px 14px;
+// font-size:0.85rem;
+// width:100%;
+// border:unset;
+// background-color:#1E1F21;
+// color:#DDDDDD;
+// outline:unset;
+// border-bottom:1px solid #464648;
+// `;
 const ButtonsWrapper = styled.div`
 padding:8px 14px;
 display:flex;
@@ -111,14 +124,14 @@ const App = () => {
 			})
 	}, [day])
 
-	const openFormHandler = (methodName, eventForUpdate = defaultEvent) => {
+	const openFormHandler = (methodName, eventForUpdate, it) => {
 		console.log('onDBl ' + methodName);
 		setShowForm(true);
-		setEvent(eventForUpdate);
+		setEvent(eventForUpdate || { ...defaultEvent, date: it.format('X') });
 		setMethod(methodName);
 
 	}
-	const canselButtonHandler = () => {
+	const cancelButtonHandler = () => {
 		setShowForm(false);
 		setEvent(null);
 	}
@@ -144,32 +157,50 @@ const App = () => {
 		})
 			.then(resp1 => resp1.json())
 			.then(resp2 => {
-				console.log(resp2);
-				setEvents(prev => [...prev, resp2]);
-				setShowForm(false);
+				if (method === 'Edytuj') {
+					setEvents(prevState => prevState.map(eventEl => eventEl.id === resp2.id ? resp2 : eventEl))
+				} else {
+					setEvents(prev => [...prev, resp2]);
+				}
+
+				cancelButtonHandler();
 			})
-
-
 	}
+
+	const deleteEventFetchHandler = () => {
+		fetch(`${url}/events/${event.id}`, {
+			method: 'DELETE',
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(res1 => res1.json())
+			.then(resp2 => {
+				setEvents(prev => prev.filter((filIt) => filIt.id !== event.id));
+				cancelButtonHandler();
+			}
+			)
+	}
+
+
 
 	return (<>
 		{
 			showForm ? (
-				<FormPositionWrapper onClick={canselButtonHandler}>
+				<FormPositionWrapper onClick={cancelButtonHandler}>
 					<FormWrapper onClick={(e) => e.stopPropagation()}>
-						<EventTitle
+						<EventTitle placeholder="title"
 							value={event.title}
 							onChange={e => changeEventHandler(e.target.value, 'title')}
 						/>
-						<EventBody
+						<EventBody placeholder="description"
 							value={event.description}
 							onChange={e => changeEventHandler(e.target.value, 'description')}
 						/>
-						{/* <EventTitle />
-						<EventBody /> */}
 						<ButtonsWrapper>
-							<button onClick={canselButtonHandler}>Anuluj</button>
+							<button onClick={cancelButtonHandler}>Anuluj</button>
 							<button onClick={eventFetchHandler}>{method}</button>
+							{method === 'Edytuj' && <button onClick={deleteEventFetchHandler}>Usun</button>}
 						</ButtonsWrapper>
 
 					</FormWrapper>
