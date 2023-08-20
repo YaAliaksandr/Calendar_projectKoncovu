@@ -1,22 +1,16 @@
 {
-	"events": [
-		{
-			"id": 1,
-			"title": "Title2-08.01",
-			"description": "08.01",
-			"date": 1690910400
-		},
-		{
-			"id": 2,
-			"title": "Title1-08.18Endвввввввввввввввввввввввввввввввввввввв",
-			"description": "09.01",
-			"date": 1692395999
-		},
-		{
-			"id": 3,
-			"title": "Title2-15.01",
-			"description": "15.01",
-			"date": 1709313600
-		}
-	]
+  "events": [
+    {
+      "id": 2,
+      "title": "Title1-08.18Endвввввввввввввввввввв",
+      "description": "09.01",
+      "date": 1692395999
+    },
+    {
+      "id": 3,
+      "title": "Title2-15.01",
+      "description": "15.01",
+      "date": 1709313600
+    }
+  ]
 }

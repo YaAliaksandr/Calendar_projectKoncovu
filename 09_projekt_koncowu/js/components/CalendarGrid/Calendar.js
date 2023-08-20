@@ -4,7 +4,7 @@ import moment from "moment/moment";
 
 
 
-const GridWrapper = styled.div`
+const DivGridWrapper = styled.div`
 display:grid;
 grid-template-columns:repeat(7,1fr);
 grid-gap:1px;
@@ -13,7 +13,7 @@ ${props => props.$isHeader && 'border-bottom:1px solid #4D4C4D'};
 `;
 
 
-const CellWrapper = styled.div`
+const DivCellWrapper = styled.div`
 overflow-x:hidden;
 overflow-y:auto;
 white-space:nowrap;
@@ -28,20 +28,14 @@ background-color: ${props =>
 				: "#1E1F21"};
 color:${props => props.$isSelectedMonth ? '#DDDDDD' : '#555759'};
 `;
-// const ScrollableContent = styled.div`
-//   overflow: auto;
-//   height: 100%;
-// `;
-
-
-const RowInCeil = styled.div`
+const DivRowInCeil = styled.div`
 display:flex;
 flex-direction:column;
 justify-content:${({ $justCon }) => $justCon ? $justCon : 'flex-start'};
 ${props => props.$pr && 'padding-right:8px'};
 `;
 
-const DayInWrapper = styled.div`
+const DivDayInWrapper = styled.div`
 height:31px;
 width:31px;
 display:flex;
@@ -50,7 +44,7 @@ justify-content:center;
 margin:2px;
 cursor:pointer;
 `;
-const CurrentDay = styled('div')`
+const DivCurrentDay = styled('div')`
 height:100%;
 width:100%;
 background-color:#f00;
@@ -64,23 +58,16 @@ color:#1E1F21;
 font-size:14px;
 white-space:pre-wrap;
 `;
-const ShowDayWrapper = styled.div`
+const DivShowDayWrapper = styled.div`
 	display:flex;
 	justify-content:flex-end;
 	`;
-const EventsListWrapper = styled.ul`
+const UlEventsListWrapper = styled.ul`
 margin:unset;
 padding-left:4px;
 list-style-position:inside;
-
 `;
-// const EventsListWrapper = styled.ul`
-// margin:unset;
-// list-style-position:inside;
-// padding-left:4px;
-
-// `;
-const EventItemWrapper = styled.p`
+const PEventItemWrapper = styled.p`
 font-size:14px;
 display:inline-block;
 text-overflow:ellipsis;
@@ -99,29 +86,13 @@ padding:0;
 text-align:left;
 `;
 
-// const EventItemWrapper = styled.button`
-// position:relative;
-// left:-14px;
-// text-overflow:ellipsis;
-// overflow:hidden;
-// white-space:nowrap;
-// width:114px;
-// border:unset;
-// background:unset;
-// color:#DDDDDD;
-// cursor:pointer;
-// margin:0;
-// padding:0;
-// text-align:left;
-// `;
-
 export const Calendar = ({ startDay, today, totalDays, events, openFormHandler }) => {
 	// totalDays = 42;// max 6 weeks(in mounth) * 7(num of Day in week)
 	const day = startDay.clone().subtract(1, 'day'); // было 1.08 применяем вычитание subtract и получаем на один день меньше
 	// console.log(day);
 	const daysArray = [...new Array(totalDays)].map((it) => { return it = day.add(1, 'day').clone(); });
 	const [holidayArr, setHolidayArr] = useState([]);
-	const [holidayName, setHolidayName] = useState(null);
+
 	const isCurrentDay = (day) => {
 		return moment().isSame(day, 'day');
 	}
@@ -145,60 +116,62 @@ export const Calendar = ({ startDay, today, totalDays, events, openFormHandler }
 
 	return (
 		<>
-			<GridWrapper $isHeader>
+			<DivGridWrapper $isHeader>
 				{[...Array(7)].map((it, ind) => (
-					<CellWrapper key={ind} $isHeader $isSelectedMonth={true}>
-						<RowInCeil $justCon='flex-end' $pr>
+					<DivCellWrapper key={ind} $isHeader $isSelectedMonth={true}>
+						<DivRowInCeil $justCon='flex-end' $pr>
 							{moment().day(ind + 1).format('dddd').charAt(0).toUpperCase() + moment().day(ind + 1).format('dddd').slice(1)}
-						</RowInCeil>
-					</CellWrapper>
+						</DivRowInCeil >
+					</DivCellWrapper >
 				)
 				)}
-			</GridWrapper>
-			<GridWrapper>
+			</DivGridWrapper>
+			<DivGridWrapper>
 				{
 					daysArray.map((it) => {
 						const isHoliday = $isHoliday(it);
 						const holidayName = isHoliday ? holidayArr.find(val => `2018-${it.format('MM')}-${it.format('DD')}` === val.date && val.public).name : null;
 						return (
-							<CellWrapper
+							<DivCellWrapper
 								key={it.format('MMDD')}
 								$isWeekend={it.day() === 6 || it.day() === 0}
 								$isSelectedMonth={$isSelectedMonth(it)}
 								$isHoliday={$isHoliday(it)}
 							>
-								<RowInCeil $justCon='flex-end'>
+								<DivRowInCeil $justCon='flex-end'>
 
-									<ShowDayWrapper>
+									<DivShowDayWrapper>
 
-										<DayInWrapper onDoubleClick={() => openFormHandler('Utworz', null, it)}>
+										<DivDayInWrapper onDoubleClick={() => openFormHandler('Utworz', null, it)}>
 											{
 												isCurrentDay(it)
-													? (<CurrentDay>{it.format('DD')}</CurrentDay>) : it.format('DD')
+													? (<DivCurrentDay>{it.format('DD')}</DivCurrentDay>) : it.format('DD')
 											}
-										</DayInWrapper>
-									</ShowDayWrapper>
-									{$isHoliday(it) && <DivHolidayNameWrapper>{holidayName} 111222333444555666777888999000</DivHolidayNameWrapper>}
+										</DivDayInWrapper >
+									</DivShowDayWrapper>
+									{$isHoliday(it) && <DivHolidayNameWrapper>
+										{holidayName}
+									</DivHolidayNameWrapper>}
 
-									<EventsListWrapper>
+									<UlEventsListWrapper >
 										{events.filter((filEv) => filEv.date >= it.clone().format('X') && filEv.date <= it.clone().endOf('day').format('X'))
 											.map((mapEv, ind) =>
 												<li key={ind}>
-													<EventItemWrapper onDoubleClick={() => openFormHandler('Edytuj', mapEv)}>
+													<PEventItemWrapper onDoubleClick={() => openFormHandler('Edytuj', mapEv)}>
 														{mapEv.title}
-													</EventItemWrapper>
+													</PEventItemWrapper >
 												</li>)
 										}
-									</EventsListWrapper>
+									</UlEventsListWrapper >
 
-								</RowInCeil>
+								</DivRowInCeil >
 
-							</CellWrapper>
+							</DivCellWrapper >
 						)
 					})
 				}
 
-			</GridWrapper>
+			</DivGridWrapper>
 		</>
 	)
 }
