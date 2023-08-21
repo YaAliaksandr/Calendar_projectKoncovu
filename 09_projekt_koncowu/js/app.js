@@ -33,7 +33,7 @@ color:#DDDDDD;
 box-shadow:unset;
 `;
 
-const DivEventTitle = styled.input`
+const InputEventTitle = styled.input`
 padding:4px 14px;
 font-size:0.85rem;
 width:100%;
@@ -55,16 +55,6 @@ border:unset;
 border-bottom:1px solid #464648;
 
 `;
-// const InputEventBody  = styled.input`
-// padding:4px 14px;
-// font-size:0.85rem;
-// width:100%;
-// border:unset;
-// background-color:#1E1F21;
-// color:#DDDDDD;
-// outline:unset;
-// border-bottom:1px solid #464648;
-// `;
 const DivButtonsWrapper = styled.div`
 padding:8px 14px;
 display:flex;
@@ -84,27 +74,20 @@ const defaultEvent = {
 const App = () => {
 	moment.updateLocale('pl', { week: { dow: 1 } });//устанавливаем начало недели с понедельника (Monday) а не с воскресенья
 
-	// const today = moment();
 	const [day, setDay] = useState(moment());
-	const monthStart = day.clone().startOf('month');
 	const startWeekMonthstart = day.clone().startOf('month').startOf('week');//first week date of months start
-	// console.log(startWeekMonthstart);
-	const monthEnd = day.clone().endOf('month');
-	const weekEndMonthEnd = monthEnd.clone().endOf('week');//last day in this page Calendar 
-
+	// const weekEndMonthEnd = day.clone().endOf('month').endOf('week');//last day in this page Calendar 
 
 	const nextMonth = () => {
-		console.log('Next');
 		setDay((prev) => prev.clone().add(1, 'month'));
 	}
 	const prevMonth = () => {
-		console.log('Prev');
 		setDay((prev) => prev.clone().subtract(1, 'month'));
 	}
 	const currentDay = () => {
 		setDay(moment());
-
 	}
+
 	const [events, setEvents] = useState([]);
 	const [event, setEvent] = useState(null);//my event for update from calendar <EventItemWrapper>
 	const [showForm, setShowForm] = useState(false);
@@ -113,18 +96,19 @@ const App = () => {
 	const startDateQuery = startWeekMonthstart.clone().format('X');//we clone first week date of months start for using in fetch
 
 	const endDateQuery = startWeekMonthstart.clone().add(totalDays, 'days').format('X');//=day.clone().endOf('month').endOf('week')
+
 	useEffect(() => {
 		fetch(`${url}/events?date_gte=${startDateQuery}&date_lte=${endDateQuery}`)
 			.then(resp => resp.json())
 			.then(resp2 => {
 				// console.log(startDateQuery);
 				// console.log(resp2);
-				setEvents(resp2)
+				setEvents(resp2);
 			})
 	}, [day])
 
 	const openFormHandler = (methodName, eventForUpdate, it) => {
-		console.log('onDBl ' + methodName);
+		// console.log('onDBl ' + methodName);
 		setShowForm(true);
 		setEvent(eventForUpdate || { ...defaultEvent, date: it.format('X') });
 		setMethod(methodName);
@@ -188,7 +172,7 @@ const App = () => {
 			showForm ? (
 				<DivFormPositionWrapper onClick={cancelButtonHandler}>
 					<DivFormWrapper onClick={(e) => e.stopPropagation()}>
-						<DivEventTitle placeholder="title"
+						<InputEventTitle placeholder="title"
 							value={event.title}
 							onChange={e => changeEventHandler(e.target.value, 'title')}
 						/>
