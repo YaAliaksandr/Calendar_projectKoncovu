@@ -14,7 +14,7 @@ ${props => props.$isHeader && 'border-bottom:1px solid #4D4C4D'};
 `;
 
 
-export const Calendar = ({ startDay, today, totalDays, events, openFormHandler }) => {
+export const Calendar = ({ startDay, today, totalDays, events, openFormHandler, scrol, setScrol }) => {
 
 	return (
 		<>
@@ -22,7 +22,7 @@ export const Calendar = ({ startDay, today, totalDays, events, openFormHandler }
 				<CalendarGridHeader />
 			</DivGridWrapper>
 			<DivGridWrapper>
-<DaysOfMonthGrid startDay={startDay} today ={today} totalDays={totalDays} events={events} openFormHandler={openFormHandler}/>
+				<DaysOfMonthGrid startDay={startDay} today={today} totalDays={totalDays} events={events} openFormHandler={openFormHandler} scrol={scrol} setScrol={setScrol} />
 			</DivGridWrapper>
 		</>
 	)

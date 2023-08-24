@@ -12,7 +12,7 @@ color:rgb(148,149,152);
 export const Header = () => {
 
 	return (<DivTitleWrapper>
-		Header
+		Aleksander
 	</DivTitleWrapper>)
 
 }

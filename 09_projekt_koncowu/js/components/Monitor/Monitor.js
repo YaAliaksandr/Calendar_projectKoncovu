@@ -10,41 +10,70 @@ align-items:center;
 background-color:rgb(27,28,31);
 color:rgb(148,149,152);
 padding:16px;
+position:relative;
 `;
 const TextWrapper = styled('span')`
-font-size:24px;
+font-size:32px;
 `;
 const TitleWrapper = styled(TextWrapper)`
 font-weight:bold;
-margin-right:16px;
+margin-right:8px;
 `;
 
 const ButtonWrapper = styled('button')`
 border:unset;
-margin-right:4px;
+background-color: ${props => props.$unPressed ? '#27282A' : '#565759'};
+border: 1px solid #565759;
 height:20px;
 background-color:#565759;
-border-radius:6px;
-color:rgb(148,149,152);
+border-radius:4px;
+color: ${props => props.$unPressed ? '#a4a6a9' : '#E6E6E6'};
+outline: unset;
+cursor:pointer;
+&:not(:last-child){
+  margin-right: 2px;
+}
+display: flex;
+justify-content: center;
+align-items: center;
 `;
+
 const TodayButton = styled(ButtonWrapper)`
-padding-inline:16px;
+
 font-weight:bold;
 `;
 const ButtonsWrapper = styled('div')`
 display:flex;
 align-items:center;
 `;
+const ButtonsCenterWrapper = styled(ButtonsWrapper)`
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%,-50%);
+`;
 
-export const Monitor = ({ today, prev, next, current }) => {
+export const Monitor = ({ today, prev, next, current,setDayOrMonth, dayOrMonth  }) => {
 
 
 	return (
 		<DivMonit>
 			<div>
+				{dayOrMonth === 'day' ? (
+
+					<TextWrapper>
+						{today.format('DD')}
+					</TextWrapper>
+				) : null}
+
 				<TitleWrapper>{today.format('MMMM').charAt(0).toUpperCase() + today.format('MMMM').slice(1)}</TitleWrapper>
 				<TextWrapper>{today.format('YYYY')}</TextWrapper>
 			</div>
+			<ButtonsCenterWrapper>
+				<ButtonWrapper $unPressed={dayOrMonth === 'month'} onClick={() => setDayOrMonth('month')}>Miesiąc</ButtonWrapper>
+				<ButtonWrapper $unPressed={dayOrMonth === 'day'} onClick={() => setDayOrMonth('day')}>Dzień</ButtonWrapper>
+
+			</ButtonsCenterWrapper>
 			<ButtonsWrapper>
 				<ButtonWrapper onClick={prev}>-</ButtonWrapper>
 				<TodayButton onClick={current}>Curent</TodayButton>
