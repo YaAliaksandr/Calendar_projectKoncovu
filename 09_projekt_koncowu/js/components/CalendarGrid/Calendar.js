@@ -22,7 +22,15 @@ export const Calendar = ({ startDay, today, totalDays, events, openFormHandler, 
 				<CalendarGridHeader />
 			</DivGridWrapper>
 			<DivGridWrapper>
-				<DaysOfMonthGrid startDay={startDay} today={today} totalDays={totalDays} events={events} openFormHandler={openFormHandler} scrol={scrol} setScrol={setScrol} />
+				<DaysOfMonthGrid
+					startDay={startDay}
+					today={today}
+					totalDays={totalDays}
+					events={events}
+					openFormHandler={openFormHandler}
+					scrol={scrol}
+					setScrol={setScrol}
+				/>
 			</DivGridWrapper>
 		</>
 	)

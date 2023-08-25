@@ -1,8 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
 
-
-
 const DivMonit = styled('div')`
 display:flex;
 justify-content:space-between;
@@ -22,16 +20,15 @@ margin-right:8px;
 
 const ButtonWrapper = styled('button')`
 border:unset;
-background-color: ${props => props.$unPressed ? '#27282A' : '#565759'};
+background-color: ${props => props.$unPressed ? '#008000' : '#565759'};
 border: 1px solid #565759;
 height:20px;
-background-color:#565759;
 border-radius:4px;
 color: ${props => props.$unPressed ? '#a4a6a9' : '#E6E6E6'};
 outline: unset;
 cursor:pointer;
 &:not(:last-child){
-  margin-right: 2px;
+margin-right: 8px;
 }
 display: flex;
 justify-content: center;
@@ -39,13 +36,14 @@ align-items: center;
 `;
 
 const TodayButton = styled(ButtonWrapper)`
-
 font-weight:bold;
 `;
+
 const ButtonsWrapper = styled('div')`
 display:flex;
 align-items:center;
 `;
+
 const ButtonsCenterWrapper = styled(ButtonsWrapper)`
   position: absolute;
   top: 50%;
@@ -53,8 +51,7 @@ const ButtonsCenterWrapper = styled(ButtonsWrapper)`
   transform: translate(50%,-50%);
 `;
 
-export const Monitor = ({ today, prev, next, current,setDayOrMonth, dayOrMonth  }) => {
-
+export const Monitor = ({ today, prev, next, current, setDayOrMonth, dayOrMonth }) => {
 
 	return (
 		<DivMonit>
@@ -66,12 +63,24 @@ export const Monitor = ({ today, prev, next, current,setDayOrMonth, dayOrMonth  
 					</TextWrapper>
 				) : null}
 
-				<TitleWrapper>{today.format('MMMM').charAt(0).toUpperCase() + today.format('MMMM').slice(1)}</TitleWrapper>
-				<TextWrapper>{today.format('YYYY')}</TextWrapper>
+				<TitleWrapper>
+					{today.format('MMMM').charAt(0).toUpperCase() + today.format('MMMM').slice(1)}
+				</TitleWrapper>
+
+				<TextWrapper>
+					{today.format('YYYY')}
+				</TextWrapper>
 			</div>
 			<ButtonsCenterWrapper>
-				<ButtonWrapper $unPressed={dayOrMonth === 'month'} onClick={() => setDayOrMonth('month')}>Miesiąc</ButtonWrapper>
-				<ButtonWrapper $unPressed={dayOrMonth === 'day'} onClick={() => setDayOrMonth('day')}>Dzień</ButtonWrapper>
+
+				<ButtonWrapper
+					$unPressed={dayOrMonth === 'month'}
+					onClick={() => setDayOrMonth('month')}>
+					Miesiąc
+				</ButtonWrapper>
+				<ButtonWrapper
+					$unPressed={dayOrMonth === 'day'}
+					onClick={() => setDayOrMonth('day')}>Dzień</ButtonWrapper>
 
 			</ButtonsCenterWrapper>
 			<ButtonsWrapper>

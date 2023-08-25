@@ -7,7 +7,6 @@
 
 
 ### This Application have dificult structure for debuging ,because i use here only state(without Using Redux).
-Przed przystąpieniem do rozwiązywania zadań przeczytaj poniższe wskazówki
+
 ### What I planing to do next:
-1. Finish view with in Day Display : add buttons at Form(Reuse from Monitor Component).
-2. Use Redux.
+1. Use Redux.

@@ -1,28 +1,30 @@
 import React from "react";
 import { isEventInCurrentDay } from "../../FunctionForHelp/functionForHelp";
 import { styled } from "styled-components";
-import { EventListWrapper, EventItemWrapper, EventListItemWrapper, UlEventsListWrapper, LiEventItemWrapper, PEventItemWrapper } from "../../StyledComponents/StyledComponentsForCalendarGridHeader";
+import { UlEventsListWrapper, LiEventItemWrapper, PEventItemWrapper, InputEventTitle, TextAreaEventBody, DivButtonsWrapper } from "../../StyledComponents/StyledComponentsForCalendarGridHeader";
 
 
 
-const DayShowWrapper = styled.div`
+const DivDayShowWrapper = styled.div`
 display:flex;
 flex-grow:1;
-`;
-
-const EventsListWrapper = styled.div`
 background-color:#1E1F21;
-color:#DDDDDD;
-flex-grow:1;
 `;
 
-const EventFormWrapper = styled.div`
+const DivEventsListWrapper = styled.div`
+color:#DDDDDD;
+width:50%;
+max-height:99%;
+overflow-y:auto
+`;
+
+const DivEventFormWrapper = styled.div`
 background-color:#27382A;
 color:#DDDDDD;
-width:300px;
+width:50%;
 position:relative;
 `;
-const NoEventMsg = styled.div`
+const DivNoEventMsg = styled.div`
 color:#565759;
 position:absolute;
 top:50%;
@@ -32,42 +34,65 @@ transform:translate(50%,-50%);
 
 
 
-export const ShowDayComponent = ({ events, today, selectedEvent, setEvent }) => {
+export const ShowDayComponent = ({ events, today, selectedEvent, setEvent, changeEventHandler, cancelButtonHandler, eventFetchHandler, method, deleteEventFetchHandler, openFormHandlerForShowDayComponent }) => {
 
 	const listOfEvents = events.filter((filIt) => isEventInCurrentDay(filIt, today))
 	return (
-		<DayShowWrapper>
-			<EventsListWrapper>
-				
+		<DivDayShowWrapper>
+			<DivEventsListWrapper>
 				<UlEventsListWrapper>
 					{
 						listOfEvents.map(ev => (
-							
+
 							<LiEventItemWrapper key={ev.id}>
-								{/* <EventItemWrapper onClick={() => setEvent(ev)}> */}
-								<PEventItemWrapper onClick={() => setEvent(ev)}>
+								<PEventItemWrapper onClick={() => openFormHandlerForShowDayComponent('Edytuj', ev)}>
 									{ev.title}
 								</PEventItemWrapper>
 							</LiEventItemWrapper>
 						))
 					}
 				</UlEventsListWrapper>
-				
-			</EventsListWrapper>
-			<EventFormWrapper>
+
+			</DivEventsListWrapper>
+			<DivEventFormWrapper>
 				{
-					selectedEvent ? (
-						<div>
-							<h3>
-								{selectedEvent.title}
-							</h3>
-						</div>
-					) : (
-						<NoEventMsg>Nie wybrano wydarzenia</NoEventMsg>
-					)
+					selectedEvent
+						? (
+							<>
+
+								<div>
+									<InputEventTitle
+										placeholder="title"
+										value={selectedEvent.title}
+										onChange={e => changeEventHandler(e.target.value, 'title')}
+									/>
+									<TextAreaEventBody
+										placeholder="description"
+										value={selectedEvent.description}
+										onChange={e => changeEventHandler(e.target.value, 'description')}
+									/>
+									<DivButtonsWrapper >
+										<button onClick={cancelButtonHandler}>Anuluj</button>
+										<button onClick={eventFetchHandler}>
+											{method}
+										</button>
+
+										{method === 'Edytuj' && <button onClick={deleteEventFetchHandler}>Usun</button>}
+									</DivButtonsWrapper >
+								</div>
+							</>
+						)
+						: (
+							<>
+								<div>
+									<button onClick={() => openFormHandlerForShowDayComponent('Utwórz', null, today)}>Utwórz</button>
+								</div>
+								<DivNoEventMsg>Nie wybrano wydarzenia</DivNoEventMsg>
+							</>
+						)
 				}
-			</EventFormWrapper>
-		
-		</DayShowWrapper>
+			</DivEventFormWrapper>
+
+		</DivDayShowWrapper>
 	)
 }
