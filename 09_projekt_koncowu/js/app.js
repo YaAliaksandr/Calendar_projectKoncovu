@@ -11,8 +11,7 @@ import { InputEventTitle, TextAreaEventBody, DivButtonsWrapper } from "./compone
 
 const DivAppWrapper = styled.div`
 width:850px;
-height:602px;
-
+height:622px;
 border: 2px solid blue;
 	border-radius: 8px;
 	overflow: hidden;
@@ -41,8 +40,9 @@ color:#DDDDDD;
 box-shadow:unset;
 `;
 
-
-const url = 'http://localhost:5000';
+// 'http://localhost:5000';//это адрес для локального репо(db.json)
+// process.env.API_URL;
+const url = process.env.API_URL ? process.env.API_URL : 'http://localhost:5000' ;
 const totalDays = 42;
 const defaultEvent = {
 	title: '',

@@ -44,7 +44,7 @@ export const CeilOfCalendar = ({ it, today, holidayArr, holidayName, openFormHan
 		?
 			(
 				<DivCellWrapper $scrol={scrol}
-					key={it.format('MMDD')}
+					// key={it.format('MMDD')}
 					$isWeekend={it.day() === 6 || it.day() === 0}
 					$isSelectedMonth={$isSelectedMonth(it, today)}
 					$isHoliday={$isHoliday(it, holidayArr)}
@@ -119,7 +119,7 @@ export const CeilOfCalendar = ({ it, today, holidayArr, holidayName, openFormHan
 			:
 			(
 				<DivCellWrapper
-					key={it.format('MMDD')}
+					// key={it.format('MMDD')}
 					$isWeekend={it.day() === 6 || it.day() === 0}
 					$isSelectedMonth={$isSelectedMonth(it, today)}
 					$isHoliday={$isHoliday(it, holidayArr)}

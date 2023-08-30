@@ -7,7 +7,8 @@ import { DivRowInCeil } from "../StyledComponents/StyledComponentsForCalendarGri
 export const CalendarGridHeader = () => {
 
 	return (<>
-		{[...Array(7)].map((it, ind) => (
+		{[...Array(7)]
+		.map((it, ind) => (
 			<DivCellWrapper key={ind}
 				$isHeader={true}
 				$isSelectedMonth={true}

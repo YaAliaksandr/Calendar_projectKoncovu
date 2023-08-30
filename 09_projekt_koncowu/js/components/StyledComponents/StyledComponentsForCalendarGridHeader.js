@@ -5,8 +5,8 @@ overflow-x:hidden;
 overflow-y:${props => props.$scrol ? 'auto' : 'hidden'};
 white-space:nowrap;
 text-overflow:ellipsis;
-height:${props => props.$isHeader ? 24 : 95}px;
-width:140px;
+height:${props => props.$isHeader ? 24 : 80}px;
+width:120px;
 background-color: ${props =>
 		props.$isHoliday
 			? "orange"
