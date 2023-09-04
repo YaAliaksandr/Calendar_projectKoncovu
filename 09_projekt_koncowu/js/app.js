@@ -42,7 +42,7 @@ box-shadow:unset;
 
 // 'http://localhost:5000';//это адрес для локального репо(db.json)
 // process.env.API_URL;
-const url = process.env.API_URL ? process.env.API_URL : 'http://localhost:5000' ;
+const url = process.env.API_URL ? process.env.API_URL : 'http://localhost:5000';
 const totalDays = 42;
 const defaultEvent = {
 	title: '',

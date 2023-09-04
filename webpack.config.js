@@ -2,10 +2,8 @@ const path = require("path");
 const webpack = require("webpack");
 
 const entryPath = "09_projekt_koncowu";
-
 module.exports = {
 	mode: "none",
-	// entry: `./${entryPath}/js/app.js`,// to bulo do fetch do 07_dzien4
 	entry: ["whatwg-fetch", `./${entryPath}/js/app.js`],
 	devtool: "inline-source-map",
 	output: {
