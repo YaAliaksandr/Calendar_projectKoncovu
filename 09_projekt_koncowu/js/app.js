@@ -40,10 +40,6 @@ color:#DDDDDD;
 box-shadow:unset;
 `;
 
-// 'http://localhost:5000';//это адрес для локального репо(db.json)
-// process.env.API_URL;
-// const url = process.env.API_URL ? process.env.API_URL : 'http://localhost:5000';
-//l
 const url ='https://my-json-calendar-server-5e1cdeed6f26.herokuapp.com';
 const totalDays = 42;
 const defaultEvent = {
@@ -238,3 +234,6 @@ const App = () => {
 const container = document.getElementById("app");
 const root = createRoot(container);
 root.render(<App />);
+// 'http://localhost:5000';//это адрес для локального репо(db.json)
+// process.env.API_URL;
+// const url = process.env.API_URL ? process.env.API_URL : 'http://localhost:5000';
