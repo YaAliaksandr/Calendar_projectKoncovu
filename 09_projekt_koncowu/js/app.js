@@ -112,13 +112,15 @@ const App = () => {
 		setEvent(prevState => {
 			return {
 				...prevState,
-				[keyName]: txt.trim()
+				// [keyName]: txt.trim()
+				[keyName]: txt
 			}
 		})
 
 	}
 	const eventFetchHandler = () => {
-		if (event.title.trim() !== '') {
+		// if (event.title.trim() !== '') {
+			if (event.title !== '') {
 			const fetchUrl = method === 'Edytuj'
 				? `${url}/events/${event.id}`
 				: `${url}/events`;
