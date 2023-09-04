@@ -67,7 +67,7 @@ export const CeilOfCalendar = ({ it, today, holidayArr, holidayName, openFormHan
 
 						<UlEventsListWrapper >
 							{events
-								.slice(0, 1)
+								.slice(0,1)
 								.map((mapEv, ind) =>
 									<LiEventItemWrapper key={ind}>
 										<PEventItemWrapper 
@@ -89,6 +89,7 @@ export const CeilOfCalendar = ({ it, today, holidayArr, holidayName, openFormHan
 							? (
 							<> {
 								events
+								.slice(1)
 									.map((mapEv, ind) =>
 										<LiEventItemWrapper key={ind}>
 											<PEventItemWrapper 
