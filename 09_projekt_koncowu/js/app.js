@@ -40,7 +40,7 @@ color:#DDDDDD;
 box-shadow:unset;
 `;
 
-const myUrl ='https://my-json-calendar-server-5e1cdeed6f26.herokuapp.com';
+const url ='https://my-json-calendar-server-5e1cdeed6f26.herokuapp.com';
 const totalDays = 42;
 const defaultEvent = {
 	title: '',
@@ -78,7 +78,7 @@ const App = () => {
 	const endDateQuery = startWeekMonthstart.clone().add(totalDays, 'days').format('X');//=day.clone().endOf('month').endOf('week')
 
 	useEffect(() => {
-		fetch(`${myUrl}/events?date_gte=${startDateQuery}&date_lte=${endDateQuery}`)
+		fetch(`${url}/events?date_gte=${startDateQuery}&date_lte=${endDateQuery}`)
 			.then(resp => resp.json())
 			.then(resp2 => {
 				setEvents(resp2);
@@ -118,12 +118,12 @@ const App = () => {
 	const eventFetchHandler = () => {
 		// if (event.title.trim() !== '') {
 			if (event.title !== '') {
-			const fetchmyUrl = method === 'Edytuj'
-				? `${myUrl}/events/${event.id}`
-				: `${myUrl}/events`;
+			const fetchUrl = method === 'Edytuj'
+				? `${url}/events/${event.id}`
+				: `${url}/events`;
 			const httpMethod = method === 'Edytuj' ? 'PATCH' : 'POST';
 
-			fetch(fetchmyUrl, {
+			fetch(fetchUrl, {
 				method: httpMethod,
 				body: JSON.stringify(event),
 				headers: {
@@ -147,7 +147,7 @@ const App = () => {
 	}
 
 	const deleteEventFetchHandler = () => {
-		fetch(`${myUrl}/events/${event.id}`, {
+		fetch(`${url}/events/${event.id}`, {
 			method: 'DELETE',
 			headers: {
 				"Content-Type": "application/json"
@@ -234,3 +234,6 @@ const App = () => {
 const container = document.getElementById("app");
 const root = createRoot(container);
 root.render(<App />);
+// 'http://localhost:5000';//это адрес для локального репо(db.json)
+// process.env.API_URL;
+// const url = process.env.API_URL ? process.env.API_URL : 'http://localhost:5000';
